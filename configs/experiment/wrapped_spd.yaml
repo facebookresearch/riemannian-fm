@@ -1,0 +1,26 @@
+# @package _global_
+data: wrapped_spd
+use_wandb: False
+
+model:
+  d_model: 512
+  num_layers: 3
+  fourier: null
+  atol: 1e-5
+  rtol: 1e-5
+  metric_normalize: True
+
+optim:
+  num_iterations: 50000
+  batch_size: 512
+  val_batch_size: 512
+  lr: 2e-4
+
+wrapped:
+  dim: 3
+  scale: 0.4
+
+val_every: 200
+div_mode: rademacher
+visualize: True
+eval_projx: True

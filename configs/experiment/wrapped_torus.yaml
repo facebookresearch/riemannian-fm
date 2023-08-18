@@ -1,0 +1,22 @@
+# @package _global_
+data: wrapped_torus
+use_wandb: True
+
+model:
+  d_model: 5000
+  num_layers: 3
+  fourier: 32
+  atol: 1e-5
+  rtol: 1e-5
+
+optim:
+  num_iterations: 50000
+  batch_size: 512
+  val_batch_size: 512
+  lr: 2e-4
+
+wrapped:
+  dim: 5
+
+val_every: 10000
+div_mode: rademacher

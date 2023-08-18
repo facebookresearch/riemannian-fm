@@ -1,0 +1,33 @@
+# @package _global_
+data: maze3v2
+use_wandb: True
+
+mesh:
+  numeigs: 200
+  metric: biharmonic
+  time_eps: 5e-3
+  nsteps: 300
+  projx: False
+  method: dopri5
+  atol: 1e-5
+  rtol: 1e-5
+
+model:
+  d_model: 512
+  num_layers: 6
+  atol: 1e-5
+  rtol: 1e-5
+
+optim:
+  num_iterations: 100000
+  batch_size: 128
+  val_batch_size: 20000
+  lr: 0.0001
+  grad_clip: 10.0
+  scheduler: null
+
+val_every: 1000
+ckpt_every: 200
+early_stopping_patience: 8
+
+eval_projx: True

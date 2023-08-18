@@ -1,0 +1,14 @@
+# @package _global_
+data: glycine
+use_wandb: True
+
+model:
+  d_model: 512
+  num_layers: 10
+  atol: 1e-5
+  rtol: 1e-5
+
+optim:
+  batch_size: 4096
+  lr: 0.0001
+  wd: 0.001

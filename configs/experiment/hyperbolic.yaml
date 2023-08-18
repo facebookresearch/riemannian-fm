@@ -1,0 +1,25 @@
+# @package _global_
+data: hyperbolic
+use_wandb: False
+
+model:
+  d_model: 512
+  num_layers: 5
+  actfn: swish
+  fourier: null
+  atol: 1e-6
+  rtol: 1e-6
+  metric_normalize: True
+
+optim:
+  num_iterations: 100000
+  batch_size: 512
+  val_batch_size: 2000
+  lr: 1e-4
+
+val_every: 5000
+div_mode: rademacher
+eval_projx: False
+local_coords: False
+normalize_loglik: False
+visualize: True

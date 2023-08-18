@@ -1,0 +1,86 @@
+defaults:
+  - _self_
+  - experiment: null
+  - override hydra/launcher: submitit_slurm
+  - override hydra/job_logging: colorlog
+  - override hydra/hydra_logging: colorlog
+
+data: volcano  # {volcano,earthquake,fire,flood}
+earth_datadir: /checkpoint/${oc.env:USER}/data/earth_data
+rna_datadir: /checkpoint/${oc.env:USER}/data/rna
+top500_datadir: /checkpoint/${oc.env:USER}/data/top500
+mesh_datadir: /checkpoint/${oc.env:USER}/data/mesh
+data_seed: null  # seed for creating the data splits. By default, uses global seed.
+
+# Only used for sampling from wrapped distributions.
+wrapped:
+  dim: 5
+  n_mixtures: 1
+  scale: 0.2
+
+mesh:
+  # Parameters for defining distance on discrete mesh.
+  numeigs: 100
+  metric: biharmonic  # {diffusion, biharmonic, commutetime}
+  temp: 0.25
+  nsteps: 200  # number of steps for solving the path
+  time_eps: 1e-5
+  projx: True
+  method: euler
+  atol: 1e-5
+  rtol: 1e-5
+
+model:
+  d_model: 512
+  num_layers: 8
+  actfn: swish
+  fourier: null
+  atol: 1e-7
+  rtol: 1e-7
+  metric_normalize: False
+
+optim:
+  num_iterations: 1000000
+  batch_size: 1024
+  val_batch_size: 20000
+
+  scheduler: cosine
+  grad_clip: 0.0
+  lr: 1e-4
+  wd: 0.0
+  eps: 1e-8
+  ema_decay: 0.999
+
+div_mode: exact
+normalize_loglik: False
+early_stopping_patience: 200  # this is affected by val_every
+
+use_wandb: False
+
+resume: null
+
+seed: 0
+
+val_every: 1000
+ckpt_every: null
+visualize: False
+
+eval_projx: True
+local_coords: False
+
+hydra:
+  job:
+    chdir: True
+  run:
+    dir: ./outputs/runs/${data}/fm/${now:%Y.%m.%d}/${now:%H%M%S}
+  sweep:
+    dir: ./outputs/multiruns/${data}/fm/${now:%Y.%m.%d}/${now:%H%M%S}
+    subdir: ${hydra.job.num}
+  launcher:
+    max_num_timeout: 100000
+    timeout_min: 4319
+    cpus_per_task: 10
+    gpus_per_node: 1
+    nodes: 1
+    partition: learnlab
+    constraint: volta32gb

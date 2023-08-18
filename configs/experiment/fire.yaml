@@ -1,0 +1,14 @@
+# @package _global_
+data: fire
+use_wandb: True
+
+model:
+  d_model: 2048
+  num_layers: 10
+  atol: 1e-7
+  rtol: 1e-7
+
+optim:
+  batch_size: 8192
+  lr: 0.0005
+  wd: 0.01

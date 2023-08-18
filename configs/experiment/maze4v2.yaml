@@ -1,0 +1,30 @@
+# @package _global_
+data: maze4v2
+use_wandb: True
+
+mesh:
+  numeigs: 30
+  metric: biharmonic
+  nsteps: 500
+  time_eps: 1e-5
+  projx: True
+
+model:
+  d_model: 512
+  num_layers: 6
+  atol: 1e-5
+  rtol: 1e-5
+
+optim:
+  num_iterations: 100000
+  batch_size: 128
+  val_batch_size: 20000
+  lr: 0.0001
+  grad_clip: 10.0
+  scheduler: null
+
+val_every: 1000
+ckpt_every: 200
+early_stopping_patience: 8
+
+eval_projx: True
