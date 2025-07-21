@@ -25,8 +25,19 @@ Algorithmic comparison to related Riemanninan diffusion models:
 
 ## Installation
 
+Original methods:
 ```
 conda env create -f environment.yml
+pip install -e .
+```
+New methods: 
+```
+conda create -n manifm python=3.9 pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.7 -c pytorch -c nvidia
+```
+Then use:
+```
+conda activate manifm
+conda env update --file new_env.yml
 pip install -e .
 ```
 
